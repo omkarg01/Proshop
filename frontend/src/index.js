@@ -32,6 +32,7 @@ import UserEditScreen from './screens/admin/UserEditScreen';
 import store from './store';
 import { Provider } from 'react-redux';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { TamboProvider } from '@tambo-ai/react';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -76,9 +77,11 @@ root.render(
   <React.StrictMode>
     <HelmetProvider>
       <Provider store={store}>
-        <PayPalScriptProvider deferLoading={true}>
-          <RouterProvider router={router} />
-        </PayPalScriptProvider>
+        <TamboProvider apiKey="tambo_SzALxLVPKrIxkzEvHE3ViZ4/3R1Sj4W2PiosoLxp2r1IB9dY5IZcd4fhbCE5Cj7CoPsaZ2n9mpLyg3RNvvBGeU23t8wv8o+dtOJZBkROGJs=">
+          <PayPalScriptProvider deferLoading={true}>
+            <RouterProvider router={router} />
+          </PayPalScriptProvider>
+        </TamboProvider>
       </Provider>
     </HelmetProvider>
   </React.StrictMode>
