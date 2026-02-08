@@ -11,6 +11,8 @@ import { getOrderHistory, getOrderDetails, getOrderStatistics } from "../service
 import { updateProductDetails, getProductForAdmin, bulkUpdateProducts, updateProductStock } from "../services/adminProductService";
 import SmartProductCard, { SmartProductCardPropsSchema } from "../components/SmartProductCard";
 import AdminDashboard, { AdminDashboardPropsSchema } from "../components/AdminDashboard";
+import OrderHistoryCard, { OrderHistoryCardPropsSchema } from "../components/OrderHistoryCard";
+import SalesDashboard, { SalesDashboardPropsSchema } from "../components/SalesDashboard";
 
 /**
  * tools
@@ -562,6 +564,8 @@ export const tools = [
     },
 ];
 
+
+
 /**
  * components
  *
@@ -576,8 +580,20 @@ export const components = [
     },
     {
         name: "AdminDashboard",
-        description: "A comprehensive dashboard for INVENTORY MANAGEMENT. Use this for ANY queries about 'restocking', 'low stock', 'top-rated products', or 'admin overview'. Displays a full table of products with statistics, stock levels, and revenue data.",
+        description: "A comprehensive dashboard for INVENTORY MANAGEMENT. Use this for ANY queries about 'restocking', 'low stock', 'inventory levels', or 'product stock status'. Displays a full table of products with stock alerts.",
         component: AdminDashboard,
         propsSchema: AdminDashboardPropsSchema,
+    },
+    {
+        name: "OrderHistoryCard",
+        description: "A list of the user's recent orders. Use this when the user asks 'Where is my order?', 'Show my past purchases', or 'What did I buy recently?'. Shows status and tracking info.",
+        component: OrderHistoryCard,
+        propsSchema: OrderHistoryCardPropsSchema,
+    },
+    {
+        name: "SalesDashboard",
+        description: "An analytics dashboard for SALES and REVENUE. Use this for queries about 'sales stats', 'how much money we made', 'top selling products', or 'revenue trends'.",
+        component: SalesDashboard,
+        propsSchema: SalesDashboardPropsSchema,
     },
 ];
