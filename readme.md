@@ -7,6 +7,7 @@
 <!-- toc -->
 
 - [Features](#features)
+- [Tambo Integration](#tambo-integration-ai-features)
 - [Usage](#usage)
   - [Env Variables](#env-variables)
   - [Install Dependencies (frontend & backend)](#install-dependencies-frontend--backend)
@@ -31,6 +32,22 @@
 - Checkout process (shipping, payment method, etc)
 - PayPal / credit card integration
 - Database seeder (products & users)
+
+## Tambo Integration (AI Features)
+
+- **SmartProductCard**: AI-driven product insights, review summaries, and smart stock alerts for individual items.
+- **AdminDashboard**: Comprehensive inventory management tool for tracking stock levels, flagging low inventory, and restocking.
+- **SalesDashboard**: Visual analytics dashboard displaying real-time revenue, order trends, and top-selling products.
+- **OrderHistoryCard**: Personalized assistant for users to track recent orders, view status updates, and manage purchase history.
+- **Review Analysis**: Tools that automatically summarize customer sentiment and extract pros/cons from product reviews.
+
+### 🎤 Sample Prompts
+Try asking these questions in the chat to see the AI components in action:
+1. **"Show me details and reviews for the iPhone 15 Pro."** (Triggers *SmartProductCard*)
+2. **"Which products are low in stock and need restocking?"** (Triggers *AdminDashboard*)
+3. **"Show me the sales statistics and revenue trends."** (Triggers *SalesDashboard*)
+4. **"Where is my recent order?"** (Triggers *OrderHistoryCard*)
+5. **"What do people like about the Amazon Echo?"** (Triggers *Review Analysis*)
 
 ## Usage
 
