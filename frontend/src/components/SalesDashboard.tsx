@@ -114,7 +114,7 @@ const SalesDashboard: React.FC<SalesDashboardProps> = ({
 
             <Modal show={show} onHide={handleClose} size="xl" centered>
                 <Modal.Header closeButton className="bg-light">
-                    <Modal.Title>📈 Sales Analytics ({effectivePeriod === 'all' ? 'All Time' : effectivePeriod})</Modal.Title>
+                    <Modal.Title>📈 Sales Analytics</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="bg-light">
                     {loading ? (
