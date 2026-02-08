@@ -13,6 +13,8 @@ import { MessageThreadCollapsible } from './components/tambo/message-thread-coll
 const App = () => {
   const dispatch = useDispatch();
 
+  // Register shopping tools with Tambo AI
+
   useEffect(() => {
     const expirationTime = localStorage.getItem('expirationTime');
     if (expirationTime) {

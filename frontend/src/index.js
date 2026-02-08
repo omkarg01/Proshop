@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './assets/styles/bootstrap.custom.css';
 import './assets/styles/index.css';
+import './app/globals.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -33,6 +34,8 @@ import store from './store';
 import { Provider } from 'react-redux';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { TamboProvider } from '@tambo-ai/react';
+import { contextHelpers } from './tambo/contextHelpers';
+import { components, tools } from './lib/tambo.ts';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -77,7 +80,12 @@ root.render(
   <React.StrictMode>
     <HelmetProvider>
       <Provider store={store}>
-        <TamboProvider apiKey="tambo_SzALxLVPKrIxkzEvHE3ViZ4/3R1Sj4W2PiosoLxp2r1IB9dY5IZcd4fhbCE5Cj7CoPsaZ2n9mpLyg3RNvvBGeU23t8wv8o+dtOJZBkROGJs=">
+        <TamboProvider
+          apiKey="tambo_SzALxLVPKrIxkzEvHE3ViZ4/3R1Sj4W2PiosoLxp2r1IB9dY5IZcd4fhbCE5Cj7CoPsaZ2n9mpLyg3RNvvBGeU23t8wv8o+dtOJZBkROGJs="
+          contextHelpers={contextHelpers}
+          tools={tools}
+          components={components}
+        >
           <PayPalScriptProvider deferLoading={true}>
             <RouterProvider router={router} />
           </PayPalScriptProvider>

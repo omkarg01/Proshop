@@ -289,7 +289,10 @@ const Field: React.FC<FieldProps> = (props) => {
  * (one field that is boolean or enum)
  */
 function isSingleEntryMode(request: TamboElicitationRequest): boolean {
-  const fields = Object.entries(request.requestedSchema.properties);
+  const fields = Object.entries(request.requestedSchema.properties) as [
+    string,
+    FieldSchema,
+  ][];
 
   if (fields.length !== 1) {
     return false;
@@ -450,7 +453,11 @@ export const ElicitationUI: React.FC<ElicitationUIProps> = ({
 }) => {
   const singleEntry = isSingleEntryMode(request);
   const fields = useMemo(
-    () => Object.entries(request.requestedSchema.properties),
+    () =>
+      Object.entries(request.requestedSchema.properties) as [
+        string,
+        FieldSchema,
+      ][],
     [request.requestedSchema.properties],
   );
   const requiredFields = useMemo(
@@ -459,7 +466,9 @@ export const ElicitationUI: React.FC<ElicitationUIProps> = ({
   );
   const [formData, setFormData] = useState<Record<string, unknown>>(() => {
     const initial: Record<string, unknown> = {};
-    fields.forEach(([name, schema]) => {
+    (
+      fields as [string, FieldSchema][]
+    ).forEach(([name, schema]) => {
       if (schema.default !== undefined) {
         initial[name] = schema.default;
       }
@@ -515,10 +524,10 @@ export const ElicitationUI: React.FC<ElicitationUIProps> = ({
     const [fieldName, fieldSchema] = fields[0];
     const validationError = touchedFields.has(fieldName)
       ? getValidationError(
-          formData[fieldName],
-          fieldSchema,
-          requiredFields.includes(fieldName),
-        )
+        formData[fieldName],
+        fieldSchema,
+        requiredFields.includes(fieldName),
+      )
       : null;
 
     return (
@@ -575,10 +584,10 @@ export const ElicitationUI: React.FC<ElicitationUIProps> = ({
         {fields.map(([name, schema], index) => {
           const validationError = touchedFields.has(name)
             ? getValidationError(
-                formData[name],
-                schema,
-                requiredFields.includes(name),
-              )
+              formData[name],
+              schema,
+              requiredFields.includes(name),
+            )
             : null;
 
           return (

@@ -25,7 +25,7 @@ import { ThreadDropdown } from "@/components/tambo/thread-dropdown";
 import { cn } from "@/lib/utils";
 import { type Suggestion } from "@tambo-ai/react";
 import { type VariantProps } from "class-variance-authority";
-import { XIcon } from "lucide-react";
+import { XIcon, MessageCircle } from "lucide-react";
 import { Collapsible } from "radix-ui";
 import * as React from "react";
 
@@ -108,8 +108,10 @@ const CollapsibleContainer = React.forwardRef<
     open={isOpen}
     onOpenChange={onOpenChange}
     className={cn(
-      "fixed bottom-4 right-4 w-full max-w-sm sm:max-w-md md:max-w-lg rounded-lg shadow-lg bg-background border border-border",
-      "transition-all duration-300 ease-in-out",
+      "fixed bottom-4 right-4 transition-all duration-300 ease-in-out",
+      isOpen
+        ? "w-full max-w-sm sm:max-w-md md:max-w-lg rounded-lg shadow-lg bg-background border border-border"
+        : "w-auto",
       className,
     )}
     {...props}
@@ -150,19 +152,17 @@ const CollapsibleTrigger = ({
       <Collapsible.Trigger asChild>
         <button
           className={cn(
-            "flex items-center justify-between w-full p-4",
-            "hover:bg-muted/50 transition-colors",
+            "w-14 h-14 rounded-full bg-primary text-primary-foreground",
+            "flex items-center justify-center",
+            "hover:bg-primary/90 transition-all duration-300",
+            "shadow-lg hover:shadow-xl",
+            "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           )}
           aria-expanded={isOpen}
           aria-controls="message-thread-content"
+          title={`${config.labels.closedState} (${shortcutText})`}
         >
-          <span>{config.labels.closedState}</span>
-          <span
-            className="text-xs text-muted-foreground pl-8"
-            suppressHydrationWarning
-          >
-            {`(${shortcutText})`}
-          </span>
+          <MessageCircle className="h-6 w-6" />
         </button>
       </Collapsible.Trigger>
     )}
