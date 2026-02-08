@@ -11,7 +11,7 @@ export const getOrderHistory = async ({ days, startDate, endDate, status }) => {
     try {
         // Fetch user's orders
         const response = await fetch('/api/orders/mine');
-        
+
         if (!response.ok) {
             throw new Error(`Failed to fetch orders with status ${response.status}`);
         }
@@ -29,11 +29,11 @@ export const getOrderHistory = async ({ days, startDate, endDate, status }) => {
 
             filteredOrders = orders.filter(order => {
                 const orderDate = new Date(order.createdAt);
-                
+
                 if (filterDate && orderDate < filterDate) return false;
                 if (start && orderDate < start) return false;
                 if (end && orderDate > end) return false;
-                
+
                 return true;
             });
         }
@@ -41,8 +41,8 @@ export const getOrderHistory = async ({ days, startDate, endDate, status }) => {
         // Apply status filtering if specified
         if (status) {
             filteredOrders = filteredOrders.filter(order => {
-                const orderStatus = order.isDelivered ? 'delivered' : 
-                                 order.isPaid ? 'paid' : 'pending';
+                const orderStatus = order.isDelivered ? 'delivered' :
+                    order.isPaid ? 'paid' : 'pending';
                 return orderStatus.toLowerCase() === status.toLowerCase();
             });
         }
@@ -59,8 +59,8 @@ export const getOrderHistory = async ({ days, startDate, endDate, status }) => {
             id: order._id,
             createdAt: order.createdAt,
             totalPrice: order.totalPrice,
-            status: order.isDelivered ? 'delivered' : 
-                    order.isPaid ? 'paid' : 'pending',
+            status: order.isDelivered ? 'delivered' :
+                order.isPaid ? 'paid' : 'pending',
             isPaid: order.isPaid,
             isDelivered: order.isDelivered,
             paidAt: order.paidAt,
@@ -83,7 +83,7 @@ export const getOrderHistory = async ({ days, startDate, endDate, status }) => {
 
         // Build descriptive message
         let message = `Found ${totalOrders} order${totalOrders !== 1 ? 's' : ''}`;
-        
+
         if (days) {
             message += ` from the last ${days} day${days !== 1 ? 's' : ''}`;
         } else if (startDate || endDate) {
@@ -91,7 +91,7 @@ export const getOrderHistory = async ({ days, startDate, endDate, status }) => {
             const endStr = endDate ? new Date(endDate).toLocaleDateString() : 'now';
             message += ` from ${startStr} to ${endStr}`;
         }
-        
+
         if (status) {
             message += ` with status "${status}"`;
         }
@@ -157,7 +157,7 @@ export const getOrderDetails = async ({ orderId }) => {
 
         // Fetch specific order details
         const response = await fetch(`/api/orders/${orderId}`);
-        
+
         if (!response.ok) {
             throw new Error(`Order not found with status ${response.status}`);
         }
@@ -173,8 +173,8 @@ export const getOrderDetails = async ({ orderId }) => {
             itemsPrice: order.itemsPrice,
             taxPrice: order.taxPrice,
             shippingPrice: order.shippingPrice,
-            status: order.isDelivered ? 'delivered' : 
-                    order.isPaid ? 'paid' : 'pending',
+            status: order.isDelivered ? 'delivered' :
+                order.isPaid ? 'paid' : 'pending',
             isPaid: order.isPaid,
             isDelivered: order.isDelivered,
             paidAt: order.paidAt,
@@ -227,9 +227,9 @@ export const getOrderDetails = async ({ orderId }) => {
  */
 export const getOrderStatistics = async ({ period = 'all' }) => {
     try {
-        // Fetch all user orders
-        const response = await fetch('/api/orders/mine');
-        
+        // Fetch all orders (Admin route) to get global sales stats
+        const response = await fetch('/api/orders');
+
         if (!response.ok) {
             throw new Error(`Failed to fetch orders with status ${response.status}`);
         }
@@ -239,7 +239,7 @@ export const getOrderStatistics = async ({ period = 'all' }) => {
         // Filter by period if specified
         let filteredOrders = orders;
         const now = new Date();
-        
+
         if (period === '30days') {
             const thirtyDaysAgo = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000));
             filteredOrders = orders.filter(order => new Date(order.createdAt) >= thirtyDaysAgo);
@@ -270,7 +270,7 @@ export const getOrderStatistics = async ({ period = 'all' }) => {
         });
 
         const topProducts = Object.entries(productCounts)
-            .sort(([,a], [,b]) => b - a)
+            .sort(([, a], [, b]) => b - a)
             .slice(0, 5)
             .map(([name, quantity]) => ({ name, quantity }));
 
@@ -279,14 +279,14 @@ export const getOrderStatistics = async ({ period = 'all' }) => {
         for (let i = 5; i >= 0; i--) {
             const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
             const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
-            
+
             const monthOrders = filteredOrders.filter(order => {
                 const orderDate = new Date(order.createdAt);
                 return orderDate >= monthDate && orderDate < nextMonthDate;
             });
-            
+
             const monthSpent = monthOrders.reduce((sum, order) => sum + (order.totalPrice || 0), 0);
-            
+
             monthlySpending.push({
                 month: monthDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
                 spent: monthSpent,
@@ -294,9 +294,9 @@ export const getOrderStatistics = async ({ period = 'all' }) => {
             });
         }
 
-        const periodText = period === 'all' ? 'all time' : 
-                         period === '30days' ? 'last 30 days' :
-                         period === '90days' ? 'last 90 days' : 'last year';
+        const periodText = period === 'all' ? 'all time' :
+            period === '30days' ? 'last 30 days' :
+                period === '90days' ? 'last 90 days' : 'last year';
 
         return {
             success: true,
