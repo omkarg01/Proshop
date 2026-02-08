@@ -8,9 +8,12 @@ import { logout } from './slices/authSlice';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { MessageThreadCollapsible } from './components/tambo/message-thread-collapsible.tsx';
 
 const App = () => {
   const dispatch = useDispatch();
+
+  // Register shopping tools with Tambo AI
 
   useEffect(() => {
     const expirationTime = localStorage.getItem('expirationTime');
@@ -33,6 +36,7 @@ const App = () => {
         </Container>
       </main>
       <Footer />
+      <MessageThreadCollapsible />
     </>
   );
 };

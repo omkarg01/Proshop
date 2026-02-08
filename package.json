@@ -16,6 +16,9 @@
     "generate-toc": "markdown-toc -i readme.md"
   },
   "dependencies": {
+    "@tiptap/core": "^3.19.0",
+    "@tiptap/extensions": "^3.19.0",
+    "@tiptap/react": "^3.19.0",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",

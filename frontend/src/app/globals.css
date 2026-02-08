@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default Tailwind CSS Variables customized with tambo colors */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 235 12% 21%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 218 11% 46%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 217 14% 90%;
+  --muted-foreground: 217 14% 68%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --border: 207 22% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 10% 3.9%;
+  --chart-1: 30 80% 54.9%;
+  --chart-2: 339.8 74.8% 54.9%;
+  --chart-3: 219.9 70.2% 50%;
+  --chart-4: 160 60% 45.1%;
+  --chart-5: 280 64.7% 60%;
+
+  /* Tambo Specific Variables needed for tambo components */
+  --container: 210 29% 97%;
+  --backdrop: 210 88% 14% / 0.25;
+  --muted-backdrop: 210 88% 14% / 0.1;
+  --radius: 0.5rem;
+  --panel-left-width: 500px;
+  --panel-right-width: 500px;
+  --sidebar-width: 3rem;
+}
+
+.dark {
+  /* Dark Mode Tailwind CSS Variables customized with tambo colors */
+  --background: 0 0% 14.5%;
+  --foreground: 0 0% 98.5%;
+  --card: 0 0% 20.5%;
+  --card-foreground: 0 0% 98.5%;
+  --popover: 0 0% 20.5%;
+  --popover-foreground: 0 0% 98.5%;
+  --primary: 0 0% 92.2%;
+  --primary-foreground: 0 0% 20.5%;
+  --secondary: 0 0% 26.9%;
+  --secondary-foreground: 0 0% 98.5%;
+  --muted: 0 0% 26.9%;
+  --muted-foreground: 0 0% 70.8%;
+  --accent: 0 0% 26.9%;
+  --accent-foreground: 0 0% 98.5%;
+  --destructive: 0 84.2% 60.2%;
+  --border: 0 0% 100% / 10%;
+  --input: 0 0% 100% / 15%;
+  --ring: 0 0% 55.6%;
+  --chart-1: 30 80% 54.9%;
+  --chart-2: 339.8 74.8% 54.9%;
+  --chart-3: 219.9 70.2% 50%;
+  --chart-4: 160 60% 45.1%;
+  --chart-5: 280 64.7% 60%;
+
+  /* Tambo Specific Variables needed for tambo components */
+  --container: 0 0% 22%;
+  --backdrop: 0 0% 85% / 0.15;
+  --muted-backdrop: 0 0% 85% / 0.08;
+  --radius: 0.5rem;
+  --panel-left-width: 500px;
+  --panel-right-width: 500px;
+  --sidebar-width: 3rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+/*
+Animated gradient for thinking text, creates a shimmering effect that moves across the text.
+*/
+@keyframes thinking-gradient {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@utility animate-thinking-gradient {
+  /* Light mode gradient - dark text shimmer */
+  background: linear-gradient(90deg,
+      oklch(0.4 0 0) 0%,
+      oklch(0.7 0 0) 50%,
+      oklch(0.4 0 0) 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: thinking-gradient 2s linear infinite;
+
+  .dark & {
+    /* Dark mode gradient - light text shimmer */
+    background: linear-gradient(90deg,
+        oklch(0.6 0 0) 0%,
+        oklch(0.9 0 0) 50%,
+        oklch(0.6 0 0) 100%);
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: thinking-gradient 2s linear infinite;
+  }
+}
